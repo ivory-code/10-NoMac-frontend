@@ -8,16 +8,16 @@ import Nav from "../../Components/Nav";
 
 function Hotelpage() {
   const [hotels, setHotel] = useState([]);
-  useEffect((props) => {
-    console.log(props);
-    fetch(`${hotelListUrl}/hotel/1`)
+  useEffect(() => {
+    const pageHotelNumber = sessionStorage.getItem("pageHotelNumber");
+    fetch(`${hotelListUrl}/hotel/${pageHotelNumber}`)
       .then((res) => res.json())
       .then((res) => {
         setHotel(res.data);
       });
   }, []);
   return (
-    <div>
+    <HotelWrap>
       {hotels.map((hotel, index) => (
         <section key={index}>
           <Nav />
@@ -29,9 +29,14 @@ function Hotelpage() {
         </section>
       ))}
       ;
-    </div>
+    </HotelWrap>
   );
 }
+const HotelWrap = styled.div`
+  height: auto;
+  background-color: white;
+`;
+
 const HotelBox = styled.div`
   width: 100%;
   height: 100%;
